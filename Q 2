@@ -42,96 +42,48 @@ int main(){
     vector<int> sham;
     vector<int> ram;
     
-    // rahim apples distribution
-    for(int i=0;i<count;i++){
-        int check = 0;
-        for(int j=i;j<count;j++){
-            vector<int> v;
-            int a=0;
-            int temp=0;
-            if(temp == rahim_weight)
-            {
-                check = -1;
-                for(int k=0;i<a;i++)
-                {
-                    int b = v[k];
-                    rahim.push_back(apples[b]);
-                }
-                vector<int>::iterator i, a;
+   // Distributing apples to Rahim
+    int temp = 0;
+    for (size_t i = 0; i < apples.size(); ++i) {
+        if (temp + apples[i] <= rahim_weight) {
+            rahim.push_back(apples[i]);
+            temp += apples[i];
+        }
+        if (temp == rahim_weight) break;
+    }
+    // Remove Rahim's apples from the list
+    for (int w : rahim) {
+        apples.erase(remove(apples.begin(), apples.end(), w), apples.end());
+    }
 
-                apples.erase(i,a);
-                break;
-            }
-            else if(temp<rahim_weight){
-                temp += apples[j];
-                v.push_back(j);
-                a=j;
-            }
-            else{
-                v.clear();
-                break;
-            }
+    // Distributing apples to Sham
+    temp = 0;
+    for (size_t i = 0; i < apples.size(); ++i) {
+        if (temp + apples[i] <= sham_weight) {
+            sham.push_back(apples[i]);
+            temp += apples[i];
         }
-        if(check == -1){
-                break;
-        }
+        if (temp == sham_weight) break;
     }
-    
-    // sham apples distribution
-    for(int i=0;i<count;i++){
-        int check = 0;
-        for(int j=i;j<count;j++){
-            vector<int> v;
-            int a=0;
-            int temp=0;
-            if(temp == sham_weight)
-            {
-                check = -1;
-                for(int k=0;i<a;i++)
-                {
-                    int b = v[k];
-                    sham.push_back(apples[b]);
-                }
-                vector<int>::iterator i, a;
+    // Remove Sham's apples from the list
+    for (int w : sham) {
+        apples.erase(remove(apples.begin(), apples.end(), w), apples.end());
+    }
 
-                apples.erase(i,a);
-                break;
-            }
-            else if(temp<sham_weight){
-                temp += apples[j];
-                v.push_back(j);
-                a=j;
-            }
-            else{
-                v.clear();
-                break;
-            }
-        }
-        if(check == -1){
-                break;
-        }
-    }
-    
-    // ram apples distribution
-    // the remaining apples present in the vector apples belongs to ram
-    
-    //rahim apples
-    cout<<"Rahim : ";
-    for(int i=0;i<rahim.size();i++){
-        cout<<rahim[i]<<" ";
-    }
-    cout<<endl;
-    
-    //sham apples
-    cout<<"Rahim : ";
-    for(int i=0;i<sham.size();i++){
-        cout<<sham[i]<<" ";
-    }
-    cout<<endl;
-    
-    //ram apples
-    cout<<"Rahim : ";
-    for(int i=0;i<apples.size();i++){
-        cout<<apples[i]<<" ";
-    }
+    // Remaining apples go to Ram
+    ram = apples;
+
+    // Output results
+    cout << "Rahim's apples: ";
+    for (int w : rahim) cout << w << " ";
+    cout << endl;
+
+    cout << "Sham's apples: ";
+    for (int w : sham) cout << w << " ";
+    cout << endl;
+
+    cout << "Ram's apples: ";
+    for (int w : ram) cout << w << " ";
+    cout << endl;
 }
+
